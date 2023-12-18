@@ -1,14 +1,13 @@
-import mongoose from 'mongoose';
-import { ENV_CONFIG } from '../config/config.js';
-import { devLogger } from '../config/logger.js';
-
+import mongoose from "mongoose";
+import { ENV_CONFIG } from "../config/config.js";
+import { devLogger } from "../config/logger.js";
 
 class DBManager {
   constructor() {
-    if (ENV_CONFIG.persistence === 'MONGO') {
+    if (ENV_CONFIG.persistence === "MONGO") {
       this.connectToMongoDB();
     } else {
-      this.contacts = [];  
+      this.contacts = [];
     }
   }
 
@@ -17,10 +16,11 @@ class DBManager {
       await mongoose.connect(ENV_CONFIG.mongoUrl, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
+        serverSelectionTimeoutMS: 20000,
       });
-      devLogger.info('Conectado a MongoDB');
+      devLogger.info("Conectado a MongoDB");
     } catch (error) {
-      devLogger.error('Error conectando a MongoDB:', error);
+      devLogger.error("Error conectando a MongoDB:", error);
     }
   }
 }
