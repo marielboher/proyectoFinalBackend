@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="/src/public/css/products.css" />
+    <title>Ticket de Compra</title>
+</head>
+<body>
+    <div class="ticket-container">
+       <div class="ticket-card">
+            <h1>GRACIAS POR TU COMPRA!</h1>
+            <h1>Ticket de Compra:</h1>
+            <p>Código del Ticket: {{ticket.code}}</p>
+            <p>Fecha de Compra: {{ticket.purchase_datetime}}</p>
+            <p>Monto Total: ${{ticket.amount}}</p>
+            <p>Comprador: {{ticket.purchaser}}</p>
+       </div>
+    </div>
+</body>
+</html>
