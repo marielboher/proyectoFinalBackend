@@ -17,7 +17,7 @@ import passport from "passport";
 import initializePassport from "./src/config/passport.config.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import DBManager from "./src/mongo/ds.js";
+// import DBManager from "./src/mongo/ds.js";
 import { ENV_CONFIG } from "./src/config/config.js";
 import emailRouter from "./src/routes/email.routes.js";
 import smsRouter from "./src/routes/sms.routes.js";
@@ -36,6 +36,15 @@ const port = ENV_CONFIG.port || 8000;
 const httpServer = app.listen(port, () => {
   devLogger.info("Servidor escuchando en puerto " + port);
 });
+
+const mongoUrl = ENV_CONFIG.mongoUrl;
+mongoose.connect(mongoUrl, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  serverSelectionTimeoutMS: 20000, 
+})
+.then(() => console.log('Conectado a MongoDB'))
+.catch(err => console.error('Error al conectar a MongoDB', err));
 
 // socket
 export const socketServer = new Server(httpServer);
