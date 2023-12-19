@@ -12,7 +12,7 @@ const sendResetPasswordEmail = async (userEmail) => {
   const resetToken = crypto.randomBytes(20).toString("hex");
 
   user.resetPasswordToken = resetToken;
-  user.resetPasswordExpires = Date.now() + 3600000; 
+  user.resetPasswordExpires = Date.now() + 3600000;
   await user.save();
 
   let transporter = nodemailer.createTransport({
@@ -23,7 +23,7 @@ const sendResetPasswordEmail = async (userEmail) => {
     },
   });
 
-  const resetUrl = `http://localhost:8000/reset-password/${resetToken}`;
+  const resetUrl = `https://proyectofinalbackend-production-630f.up.railway.app/reset-password/${resetToken}`;
   let mailOptions = {
     from: "tuemail@example.com",
     to: userEmail,
