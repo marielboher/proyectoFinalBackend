@@ -5,6 +5,8 @@ import { ENV_CONFIG } from "../config/config.js";
 const stripe = new Stripe(ENV_CONFIG.stripeKey);
 
 export const createPayment = async (req, res) => {
+  console.log(ENV_CONFIG.stripeKey);
+  console.log(stripe);
   const cartId = req.body.cartId;
 
   if (!cartId) {

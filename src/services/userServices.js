@@ -27,8 +27,7 @@ class UserService {
       const role =
         email === "adminCoder@coder.com" && password === "adminCod3r123"
           ? "admin"
-          : email === ENV_CONFIG.premiumEmail &&
-            password === ENV_CONFIG.premiumPassword
+          : email === "premium@premium.com" && password === "premiumCod3r123"
           ? "premium"
           : "user";
 
