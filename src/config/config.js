@@ -10,16 +10,21 @@ program
 
 const environment = program.opts().mode || "production";
 
-let envPath;
-if (environment === "production") {
-  envPath = "./src/config/.env.production";
-} else if (environment === "test") {
-  envPath = "./src/config/.env.test";
-} else {
-  envPath = "./src/config/.env.development";
+if (process.env.NODE_ENV !== "production") {
+  let envPath;
+  switch (process.env.NODE_ENV) {
+    case "test":
+      envPath = "./src/config/.env.test";
+      break;
+    case "development":
+      envPath = "./src/config/.env.development";
+      break;
+    default:
+      envPath = "./src/config/.env.development";
+      break;
+  }
+  dotenv.config({ path: envPath });
 }
-
-dotenv.config({ path: envPath });
 
 export const ENV_CONFIG = {
   port: process.env.PORT,
