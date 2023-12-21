@@ -20,12 +20,27 @@ const registerUser = async () => {
         window.location.href = data.redirect;
       } else {
         console.error("Error en el registro:", data.message);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "User already exists!",
+        });
       }
     } else {
       console.error("Error al registrar el usuario:", response.statusText);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "User already exists!",
+      });
     }
   } catch (error) {
     console.error("Hubo un error al registrar el usuario:", error);
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "An error occurred during registration.",
+    });
   }
 };
 

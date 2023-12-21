@@ -131,5 +131,3 @@ const eliminarProductoDelCarrito = async (pid) => {
     console.error("Error al eliminar el producto del carrito: " + error);
   }
 };
-
-

@@ -17,7 +17,6 @@ import passport from "passport";
 import initializePassport from "./src/config/passport.config.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-// import DBManager from "./src/mongo/ds.js";
 import { ENV_CONFIG } from "./src/config/config.js";
 import emailRouter from "./src/routes/email.routes.js";
 import smsRouter from "./src/routes/sms.routes.js";
@@ -29,7 +28,6 @@ import swaggerUIExpress from "swagger-ui-express";
 import usersRouter from "./src/routes/users.routes.js";
 import paymentsRouter from "./src/routes/payments.routes.js";
 
-// conectarseal puerto
 const app = express();
 const port = ENV_CONFIG.port || 8000;
 

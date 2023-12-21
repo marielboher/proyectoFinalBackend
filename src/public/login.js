@@ -9,23 +9,26 @@ const loginUser = async () => {
       body: JSON.stringify({ email: email, password: password }),
     });
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-
     const data = await response.json();
-    if (data.status === "success") {
+
+    if (response.ok && data.status === "success") {
       console.log("Data received: ", data);
-      console.log("Redirigiendo a:", data.redirect);
       window.location.href = data.redirect;
     } else {
       console.log("Error durante el inicio de sesión:", data);
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Invalid credentials!',
+      });
     }
   } catch (error) {
-    console.log(
-      "Hubo un problema con la operación, usuario o contraseña incorrectos",
-      error
-    );
+    console.error("Hubo un problema con la operación: ", error);
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Invalid credentials!',
+    });
   }
 };
 document.getElementById("btnLogIn").onclick = loginUser;

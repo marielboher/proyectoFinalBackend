@@ -2,6 +2,7 @@ import { fileURLToPath } from "url";
 import { dirname } from "path";
 import bcrypt from "bcrypt";
 import passport from "passport";
+import Swal from "sweetalert2";
 
 export const createHash = (password) =>
   bcrypt.hashSync(password, bcrypt.genSaltSync(10));
@@ -43,6 +44,11 @@ export const authorization = (roles) => {
 
     if (!roles.includes(req.user.role)) {
       console.log("User does not have the required role");
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'You do not have the required role for this action!',
+      });
       return res
         .status(403)
         .send({ status: "error", message: "No permissions" });
