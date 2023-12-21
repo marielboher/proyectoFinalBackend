@@ -8,13 +8,13 @@ program
   .option("--mode <mode>", "Modo de trabajo", "development")
   .parse(process.argv);
 
-const environment = program.opts().mode;
+const environment = program.opts().mode || "production";
 
 let envPath;
 if (environment === "production") {
   envPath = "./src/config/.env.production";
 } else if (environment === "test") {
-  envPath = "./src/config/.env.test"; 
+  envPath = "./src/config/.env.test";
 } else {
   envPath = "./src/config/.env.development";
 }
@@ -39,5 +39,5 @@ export const ENV_CONFIG = {
   twilioAccountSid: process.env.TWILIO_ACCOUNT_SID,
   twilioAuthToken: process.env.TWILIO_AUTH_TOKEN,
   twilioNumber: process.env.TWILIO_SMS_NUMBER,
-  stripeKey: process.env.STRIPE_KEY
+  stripeKey: process.env.STRIPE_KEY,
 };
