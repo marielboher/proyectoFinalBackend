@@ -25,7 +25,7 @@ class UserService {
       }
 
       const role =
-        email === ENV_CONFIG.adminEmail && password === ENV_CONFIG.adminPassword
+        email === "adminCoder@coder.com" && password === "adminCod3r123"
           ? "admin"
           : email === ENV_CONFIG.premiumEmail &&
             password === ENV_CONFIG.premiumPassword
@@ -33,7 +33,6 @@ class UserService {
           : "user";
 
       const cartId = cartResponse.id;
-      console.log("Cart ID:", cartId);
 
       const user = await this.userManager.addUser({
         first_name,
