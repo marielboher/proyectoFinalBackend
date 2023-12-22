@@ -32,10 +32,21 @@ const agregarProductoAlCarrito = async (pid) => {
     });
 
     if (!response.ok) {
-      console.error("Error al agregar el producto al carrito.");
+      const data = await response.json();
+      if (
+        data.message ===
+        "Como usuario premium, no puedes agregar tus propios productos al carrito"
+      ) {
+        Swal.fire({
+          icon: "error",
+          title: "Error al agregar el producto al carrito",
+          text: "Como usuario premium, no puedes agregar tus propios productos al carrito",
+        });
+      } else {
+        console.error("Error al agregar el producto al carrito.");
+      }
       return;
     }
-
     Swal.fire({
       position: "top-end",
       icon: "success",

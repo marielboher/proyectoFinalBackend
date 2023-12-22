@@ -19,7 +19,7 @@ cartsRouter.get("/:cid", cartControllers.getCart.bind(cartControllers));
 cartsRouter.post(
   "/:cid/products/:pid",
   passportCall("jwt"),
-  authorization(["user"]),
+  authorization(["user", "premium"]),
   cartControllers.addProductToCart.bind(cartControllers)
 );
 
@@ -50,12 +50,10 @@ cartsRouter.post(
   cartControllers.createPurchaseTicket.bind(cartControllers)
 );
 
-
-
 cartsRouter.get(
   "/usuario/carrito",
   passportCall("jwt"),
-  authorization(["user"]),
+  authorization(["user", "premium"]),
   async (req, res) => {
     try {
       const userId = req.user._id;

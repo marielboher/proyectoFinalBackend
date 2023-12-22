@@ -2,6 +2,7 @@ import ProductManager from "../dao/ProductManager.js";
 import { cartModel } from "../models/cart.model.js";
 import CartService from "../services/cartServices.js";
 import ticketController from "./ticketController.js";
+import Swal from "sweetalert2";
 import { v4 as uuidv4 } from "uuid";
 
 class CartController {
@@ -50,18 +51,44 @@ class CartController {
     try {
       const cart = await this.cartService.getCart(cartId);
       if (!cart) {
-        throw new Error('Cart not found');
+        throw new Error("Cart not found");
       }
       return cart;
     } catch (error) {
-      console.error('Error getting cart:', error);
-      throw error; 
+      console.error("Error getting cart:", error);
+      throw error;
     }
   }
 
   async addProductToCart(req, res) {
     try {
       const { cid, pid } = req.params;
+      const userId = req.user._id;
+
+      const product = await this.productManager.getProductById(pid);
+      if (!product) {
+        return res.status(404).send({
+          status: "error",
+          message: "Producto no encontrado",
+        });
+      }
+
+      if (
+        req.user.role === "premium" &&
+        product.owner.toString() === userId.toString()
+      ) {
+        Swal.fire({
+          icon: "warning",
+          title: "No puedes agregar tus propios productos",
+          text: "Como usuario premium, no puedes agregar tus propios productos al carrito",
+        });
+        return res.status(403).send({
+          status: "error",
+          message:
+            "Como usuario premium, no puedes agregar tus propios productos al carrito",
+        });
+      }
+
       const result = await this.cartService.addProductToCart(cid, pid);
       res.send(result);
     } catch (error) {
@@ -71,7 +98,6 @@ class CartController {
       });
     }
   }
-
   async updateQuantityProductFromCart(req, res) {
     try {
       const { cid, pid } = req.params;
