@@ -14,3 +14,5 @@ en la ruta /apidocs se podra obtener informacion acerca de la documentacion para
 para obtener todos los usuarios: /api/users
 para eliminar usuarios inactivos: /api/users/inactive
 
+link de el proyecto subido:
+https://proyectofinalbackend-production-630f.up.railway.app/
